@@ -1,9 +1,11 @@
-# OS X
+## OS X, IDE
 .DS_Store
 
-# Xcode
+## generated build
 build/
-DerivedData/
+DerivedData
+
+## various user project settings
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -12,13 +14,13 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-xcuserdata/
+xcuserdata
+
+## other
+*.xccheckout
 *.moved-aside
 *.xcuserstate
-*.hmap
+*.xcscmblueprint
+*.xcscheme
 *.ipa
 *.xcscmblueprint
-
-# Config
-Common/Config/Config.swift
-Broadcaster.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved

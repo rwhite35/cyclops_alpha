@@ -44,6 +44,7 @@
 		6B02BCFB2C0F615F0035E44E /* CyclOpsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CyclOpsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B02BCFF2C0F615F0035E44E /* CyclOpsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclOpsUITests.swift; sourceTree = "<group>"; };
 		6B02BD012C0F615F0035E44E /* CyclOpsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclOpsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		6B02BD0E2C0F62220035E44E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +95,7 @@
 		6B02BCE32C0F615D0035E44E /* CyclOps */ = {
 			isa = PBXGroup;
 			children = (
+				6B02BD0E2C0F62220035E44E /* Info.plist */,
 				6B02BCE42C0F615D0035E44E /* CyclOpsApp.swift */,
 				6B02BCE62C0F615D0035E44E /* ContentView.swift */,
 				6B02BCE82C0F615F0035E44E /* Assets.xcassets */,
@@ -425,6 +427,9 @@
 				DEVELOPMENT_TEAM = 5989ZS8VKK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CyclOps/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect Bluetooth enabled camera for Face Forward System.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses device camera for Face Forward System";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -454,6 +459,9 @@
 				DEVELOPMENT_TEAM = 5989ZS8VKK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CyclOps/Info.plist;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "Connect Bluetooth enabled camera for Face Forward System.";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Uses device camera for Face Forward System";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
