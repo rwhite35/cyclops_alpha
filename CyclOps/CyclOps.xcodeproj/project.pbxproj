@@ -14,6 +14,12 @@
 		6B02BCF62C0F615F0035E44E /* CyclOpsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BCF52C0F615F0035E44E /* CyclOpsTests.swift */; };
 		6B02BD002C0F615F0035E44E /* CyclOpsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BCFF2C0F615F0035E44E /* CyclOpsUITests.swift */; };
 		6B02BD022C0F615F0035E44E /* CyclOpsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD012C0F615F0035E44E /* CyclOpsUITestsLaunchTests.swift */; };
+		6B02BD122C0F76E10035E44E /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD112C0F76E10035E44E /* Home.swift */; };
+		6B02BD142C0F76FB0035E44E /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD132C0F76FB0035E44E /* Camera.swift */; };
+		6B02BD162C0F77420035E44E /* Devices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD152C0F77420035E44E /* Devices.swift */; };
+		6B02BD182C0F78C30035E44E /* HomeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD172C0F78C30035E44E /* HomeUI.swift */; };
+		6B02BD1A2C0F78D40035E44E /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD192C0F78D40035E44E /* CameraUI.swift */; };
+		6B02BD1C2C0F78EB0035E44E /* DevicesUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD1B2C0F78EB0035E44E /* DevicesUI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +51,12 @@
 		6B02BCFF2C0F615F0035E44E /* CyclOpsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclOpsUITests.swift; sourceTree = "<group>"; };
 		6B02BD012C0F615F0035E44E /* CyclOpsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CyclOpsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		6B02BD0E2C0F62220035E44E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		6B02BD112C0F76E10035E44E /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		6B02BD132C0F76FB0035E44E /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		6B02BD152C0F77420035E44E /* Devices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Devices.swift; sourceTree = "<group>"; };
+		6B02BD172C0F78C30035E44E /* HomeUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUI.swift; sourceTree = "<group>"; };
+		6B02BD192C0F78D40035E44E /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
+		6B02BD1B2C0F78EB0035E44E /* DevicesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesUI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +107,8 @@
 		6B02BCE32C0F615D0035E44E /* CyclOps */ = {
 			isa = PBXGroup;
 			children = (
+				6B02BD102C0F76B50035E44E /* ViewModel */,
+				6B02BD0F2C0F76A80035E44E /* View */,
 				6B02BD0E2C0F62220035E44E /* Info.plist */,
 				6B02BCE42C0F615D0035E44E /* CyclOpsApp.swift */,
 				6B02BCE62C0F615D0035E44E /* ContentView.swift */,
@@ -127,6 +141,26 @@
 				6B02BD012C0F615F0035E44E /* CyclOpsUITestsLaunchTests.swift */,
 			);
 			path = CyclOpsUITests;
+			sourceTree = "<group>";
+		};
+		6B02BD0F2C0F76A80035E44E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6B02BD112C0F76E10035E44E /* Home.swift */,
+				6B02BD132C0F76FB0035E44E /* Camera.swift */,
+				6B02BD152C0F77420035E44E /* Devices.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6B02BD102C0F76B50035E44E /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6B02BD172C0F78C30035E44E /* HomeUI.swift */,
+				6B02BD192C0F78D40035E44E /* CameraUI.swift */,
+				6B02BD1B2C0F78EB0035E44E /* DevicesUI.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +293,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6B02BD182C0F78C30035E44E /* HomeUI.swift in Sources */,
+				6B02BD142C0F76FB0035E44E /* Camera.swift in Sources */,
 				6B02BCE72C0F615D0035E44E /* ContentView.swift in Sources */,
+				6B02BD1C2C0F78EB0035E44E /* DevicesUI.swift in Sources */,
+				6B02BD162C0F77420035E44E /* Devices.swift in Sources */,
+				6B02BD122C0F76E10035E44E /* Home.swift in Sources */,
 				6B02BCE52C0F615D0035E44E /* CyclOpsApp.swift in Sources */,
+				6B02BD1A2C0F78D40035E44E /* CameraUI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,7 +389,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -406,7 +446,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;

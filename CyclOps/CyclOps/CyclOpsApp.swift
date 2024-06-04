@@ -11,7 +11,8 @@ import SwiftUI
 struct CyclOpsApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            Home(model: HomeUI())
+            /// ContentView()
         }
     }
 }
