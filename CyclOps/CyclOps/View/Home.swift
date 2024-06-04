@@ -14,7 +14,9 @@ struct Home: View {
     @StateObject var model: HomeUI
     @State var activeSheet: HomeActiveSheet?
     
-    /// view nav components
+    /// modal presentation sheet nav
+    /// - Devices: add a bluetooth camera(s)
+    /// - Camera: list of paired camera options
     @ViewBuilder
     func homeAppBar() -> some View {
         ZStack {
@@ -24,32 +26,37 @@ struct Home: View {
                 Button(action: {
                     activeSheet = .devices
                 }, label: {
-                    Text("Add Device")
+                    Text("Add Camera")
                 }).foregroundColor(Color(UIColor.systemBackground))
                     .background(.ultraThinMaterial)
                     .frame(alignment: .leading)
-                
+                ///
                 Spacer().frame(width:20)
-
                 /// Camera view
                 Button(action: {
                     activeSheet = .camera
                 }, label: {
-                    Text("Camera View")
+                    Text("Cameras")
                 }).foregroundColor(Color(UIColor.systemBackground))
                     .background(.ultraThinMaterial)
                     .frame(alignment: .trailing)
             }.frame(maxWidth: .infinity)
-        }.frame(height: 40)
+        }.frame(height:40)
     }
     
     /// main body object
     var body: some View {
-        ZStack(alignment: .bottom, content: {
-            Rectangle().foregroundColor(Color.blue).ignoresSafeArea(.container)
-            VStack() {
+        ZStack(alignment: .top, content: {
+            Rectangle().foregroundColor(Color.blue)
+            VStack(
+                alignment: .center,
+                spacing: 20
+            ){
                 homeAppBar()
-                Spacer()
+                Image(systemName: "globe")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text("Hello Camera!")
             }
         })
         .onAppear {
