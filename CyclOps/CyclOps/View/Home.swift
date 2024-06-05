@@ -70,7 +70,9 @@ struct Home: View {
                 homeAppBar()
                 Text("Hello Safe Cyclist!")
                 Spacer()
-                Text("Tap Add Camera to pair a new bluetooth enabled camera, or Saved Cameras to select a different camera in your camera inventory.\n\nTap Start to begin object detection using a connected and active camera.")
+                let addCam = Text("Add Camera").italic()
+                let savCam = Text("Save Cameras").italic()
+                Text("Tap \(addCam)to pair a new bluetooth enabled camera,\nor \(savCam) to select a different camera in your camera inventory.\n\nTap Start button to begin object detection using a connected and active camera.")
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: screenSize.width / 1.328, maxHeight: screenSize.height / 4)
                 Spacer()
@@ -101,7 +103,7 @@ struct Home: View {
             model.showCamera = false
         }) { item in
             switch item {
-            case .devices: Devices()
+            case .devices: Devices().environmentObject(CBViewModel())
             case .camera: Camera()
             }
         }
