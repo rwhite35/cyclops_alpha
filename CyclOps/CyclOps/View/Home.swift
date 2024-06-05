@@ -29,20 +29,16 @@ struct Home: View {
                 Button(action: {
                     activeSheet = .devices
                 }, label: {
-                    Text("Add Camera")
-                }).foregroundColor(Color(UIColor.systemBackground))
-                    .background(.ultraThinMaterial)
-                    .frame(alignment: .leading)
+                    Text("Add Camera").mainBtnLabel()
+                }).buttonStyle(NavButton()).frame(alignment: .leading)
                 ///
                 Spacer().frame(width:20)
                 /// Camera view
                 Button(action: {
                     activeSheet = .camera
                 }, label: {
-                    Text("Cameras")
-                }).foregroundColor(Color(UIColor.systemBackground))
-                    .background(.ultraThinMaterial)
-                    .frame(alignment: .trailing)
+                    Text("Saved Cameras").mainBtnLabel()
+                }).buttonStyle(NavButton()).frame(alignment: .trailing)
             }.frame(maxWidth: .infinity)
         }.frame(height:40)
     }
@@ -58,15 +54,15 @@ struct Home: View {
                 /// will start a new Object Detection Session
                 print(":\(#line) \(TAG) - odsStartStop tapped, \(prefix)'s ODSession!")
             }, label: {
-                Text("Start").mainBtnLabel()
-            }).mainBtnStyle()
-        }
+                Text("\(prefix) Detection").mainBtnLabel()
+            }).buttonStyle(MainButton())
+        }.frame(maxWidth: .infinity)
     }
     
     /// main body object
     var body: some View {
         ZStack(alignment: .top, content: {
-            Rectangle().foregroundColor(Color.blue).saveSize(in: $screenSize)
+            Rectangle().foregroundColor(Color("viewBkg")).saveSize(in: $screenSize)
             VStack(
                 alignment: .center,
                 spacing: 20
@@ -74,7 +70,7 @@ struct Home: View {
                 homeAppBar()
                 Text("Hello Safe Cyclist!")
                 Spacer()
-                Text("Start and stop an object detection session from the Home screen by tapping the button below.\n\nOr tap Add Camera to pair a new bluetooth camera, or Camera to select an already saved device.")
+                Text("Tap Add Camera to pair a new bluetooth enabled camera, or Saved Cameras to select a different camera in your camera inventory.\n\nTap Start to begin object detection using a connected and active camera.")
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: screenSize.width / 1.328, maxHeight: screenSize.height / 4)
                 Spacer()
