@@ -12,8 +12,11 @@ struct Home: View {
     /// view properties
     let TAG = "HomeView"
     @StateObject var model: HomeUI
+    @State var screenSize: CGSize = .zero
     @State var activeSheet: HomeActiveSheet?
-    
+    @State var detectMng = DetectionManager()
+    @State var odsLblPrefix: String?
+
     /// modal presentation sheet nav
     /// - Devices: add a bluetooth camera(s)
     /// - Camera: list of paired camera options
@@ -44,23 +47,49 @@ struct Home: View {
         }.frame(height:40)
     }
     
+    /// control element for starting and stopping an Object Detection (OD) Session
+    /// - Start ODSession: start a new ODSession and AVSession
+    /// - Stop ODSession: stops an existing ODSession
+    @ViewBuilder
+    func odsStartStop(manager: DetectionManager) -> some View {
+        let prefix = manager.isODSRunning ? manager.odsLabel[1] : manager.odsLabel[0]
+        HStack(spacing: 20){
+            Button(action: { 
+                /// will start a new Object Detection Session
+                print(":\(#line) \(TAG) - odsStartStop tapped, \(prefix)'s ODSession!")
+            }, label: {
+                Text("Start").mainBtnLabel()
+            }).mainBtnStyle()
+        }
+    }
+    
     /// main body object
     var body: some View {
         ZStack(alignment: .top, content: {
-            Rectangle().foregroundColor(Color.blue)
+            Rectangle().foregroundColor(Color.blue).saveSize(in: $screenSize)
             VStack(
                 alignment: .center,
                 spacing: 20
             ){
                 homeAppBar()
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text("Hello Camera!")
+                Text("Hello Safe Cyclist!")
+                Spacer()
+                Text("Start and stop an object detection session from the Home screen by tapping the button below.\n\nOr tap Add Camera to pair a new bluetooth camera, or Camera to select an already saved device.")
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: screenSize.width / 1.328, maxHeight: screenSize.height / 4)
+                Spacer()
+                odsStartStop(manager: detectMng)
+                Spacer()
+
+                GeometryReader { proxy in
+                    HStack {}.onAppear { screenSize = proxy.size }
+                }
             }
         })
         .onAppear {
-            print(":\(#line) \(TAG) scenePhase is active!")
+            model.scenePhase = .active
+            print(":\(#line) \(TAG) scenePhase is active! screen width \(screenSize.width), height \(screenSize.height).")
+            odsLblPrefix = (detectMng.isODSRunning) ? detectMng.odsLabel[1] : detectMng.odsLabel[0]
         }
         .onChange(of: model.showDevices) { value in
             if value { activeSheet = .devices }
@@ -87,16 +116,4 @@ struct Home: View {
 enum HomeActiveSheet: Identifiable {
     case devices, camera
     var id: Int { hashValue }
-}
-
-/// view extensions
-extension Text {
-    /// Subheads, adapts to light/dark mode
-    func sectionHeader() -> some View {
-        font(Font.custom("Roboto",size:13)).fontWeight(.semibold).foregroundColor(.secondary)
-    }
-    /// Body Copy, adapts to light/dark mode
-    func bodyCopy() -> some View {
-        font(Font.custom("Roboto",size:12)).fontWeight(.regular).foregroundColor(Color(UIColor.systemGray))
-    }
 }
