@@ -13,7 +13,10 @@ public class CBCentralManagerMock : Mock, CBCentralManagerProtocol {
     public var isScanning: Bool = false
     public var deviceLocalName: String = "ble device"
     
-    required public init(delegate: CBCentralManagerDelegate?, queue: DispatchQueue?, options: [String : Any]? = nil) {
+    required public init(delegate: CBCentralManagerDelegate?, 
+                         queue: DispatchQueue?,
+                         options: [String : Any]? = nil
+    ) {
         log(#function)
         
         self.delegate = delegate
@@ -49,7 +52,10 @@ public class CBCentralManagerMock : Mock, CBCentralManagerProtocol {
         isScanning = false
     }
     
-    public func connect(_ peripheral: CBPeripheralProtocol, options: [String : Any]? = nil) {
+    public func connect(
+        _ peripheral: CBPeripheralProtocol,
+        options: [String : Any]? = nil
+    ) {
         log(#function)
 
         if let delegate = delegate as? CBCentralManagerProtocolDelegate {

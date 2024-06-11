@@ -8,20 +8,21 @@ import SwiftUI
 import CoreBluetooth
 
 class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBCentralManagerProtocolDelegate {
-    
+
+    let TAG = "CBViewModel"
     @Published var isBlePower: Bool = false
     @Published var isSearching: Bool = false
     @Published var isConnected: Bool = false
-    
+
     @Published var foundPeripherals: [Peripheral] = []
     @Published var foundServices: [Service] = []
     @Published var foundCharacteristics: [Characteristic] = []
-    
+
     private var centralManager: CBCentralManagerProtocol!
     private var connectedPeripheral: Peripheral!
-    
+
     private let serviceUUID: CBUUID = CBUUID()
-    
+
     override init() {
         super.init()
         #if targetEnvironment(simulator)
@@ -32,6 +33,8 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
     }
     
 
+    // -MARK: CBCentralManager connect/disconnect methods
+    ///
     /// resets device scan properties
     private func resetConfigure() {
         withAnimation {
@@ -43,56 +46,103 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
             foundCharacteristics = []
         }
     }
-    
-    /// Start and Stop controls for scanning devices
+
+    /// wrapper method for CBCentralManager.scanForPeripherals( )
+    /// - appends found CBPeripheral to CBCentralManager.foundPeripherals object
     func startScan() {
-        let scanOption = [CBCentralManagerScanOptionAllowDuplicatesKey: true]
-        centralManager?.scanForPeripherals(withServices: nil, options: scanOption)
-        print("# Start Scan")
+        print("CBViewModel.startScan() scanning for devices!")
+        let scanOption = [
+            CBCentralManagerScanOptionAllowDuplicatesKey: true,
+        ]
+        centralManager?.scanForPeripherals(
+            withServices: nil,
+            options: scanOption
+        )
         isSearching = true
     }
     
-    func stopScan(){
-        disconnectPeripheral()
-        centralManager?.stopScan()
-        print("# Stop Scan")
-        isSearching = false
-    }
-    
-    /// connect a found device
+    /// device button action method from startScan( ) -> scanForPeripherals( ) -> foundPeripherals[n]
+    /// starts connection, auto calls CBCentralManager discovery for Services, Characteristics and Descriptors
     func connectPeripheral(_ selectPeripheral: Peripheral?) {
-        guard let connectPeripheral = selectPeripheral else { return }
+        let dname = selectPeripheral?.peripheral.name ?? "NoName Device"
+        print(":\(#line) \(TAG).connectPeripheral working...")
+        
+        guard let connectPeripheral = selectPeripheral else {
+            print("WARN: \(TAG).connectPeripheral unable to connect \(dname), returns here.")
+            return
+        }
+        /// assigns this device to CBViewModels Peripheral
         connectedPeripheral = selectPeripheral
+
+        /// wrapper for CBCentralManagerProtocol.connect( ), triggers device discovery methods
         centralManager.connect(connectPeripheral.peripheral, options: nil)
     }
     
+    /// wrapper method for CBCentralManager.stopScan( )
+    /// - triggers resetConfiguration( ) from
+    func stopScan(){
+        print("CBViewModel.stopScan() scanning for devices!")
+        disconnectPeripheral()
+        centralManager?.stopScan()
+        isSearching = false
+        print(": Stopped scan")
+    }
+    
+    /// wrapper method for CBCentralManager.cancelPeripheralConnection( )
+    ///
     func disconnectPeripheral() {
         guard let connectedPeripheral = connectedPeripheral else { return }
         centralManager.cancelPeripheralConnection(connectedPeripheral.peripheral)
     }
+
     
-    // -MARK: CoreBluetooth CentralManager delegate method implementation
+    // -MARK: CBCentralManager delegates implementation
+    /// methods in order of running process, from Add button through device selected.
     ///
+    /// from startScan( ), notified on `Add Device` scan completion
     func didUpdateState(_ central: CBCentralManagerProtocol) {
-        if central.state == .poweredOn {
-            isBlePower = true
-        } else {
-            isBlePower = false
-        }
+        if central.state == .poweredOn { isBlePower = true }
+        else { isBlePower = false }
+        print(":\(#line) \(TAG).didUpdateState( ) notified...")
+        print(": - centralManager.State.powerOn is \(isBlePower)!")
     }
-    
-    /// devices discovered
-    func didDiscover(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol, advertisementData: [String : Any], rssi: NSNumber) {
-        if rssi.intValue >= 0 { return }
+
+    /// delegate notified on CBCentralManager.connect( ) :: CBPeripheralProtocol.connect( )
+    /// depends on CBPeripheralProtocol.discoveryServices([CBUUID )
+    func didConnect(_ central: CBCentralManagerProtocol,
+                    peripheral: CBPeripheralProtocol
+    ){
+        let cpname = peripheral.name ?? "NoName Device"
+        print(":\(#line) \(TAG).didConnect( ) notified...")
         
-        let peripheralName = advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? nil
-        var _name = "NoName"
-        
-        if peripheralName != nil {
-            _name = String(peripheralName!)
-        } else if peripheral.name != nil {
-            _name = String(peripheral.name!)
+        guard let connectedPeripheral = connectedPeripheral else {
+            print(":WARN \(TAG).didConnect can't assign \(cpname) to local, returns here.")
+            return
         }
+        isConnected = true
+        print(": - assigns self as delegate for connectedPeripheral \(cpname)")
+        
+        /// self assigned as CBCentralManagerDelegate, notifies didDiscoverServices( )
+        connectedPeripheral.peripheral.delegate = self
+        connectedPeripheral.peripheral.discoverServices(nil)
+    }
+
+    /// create a new device instance using CBCentralManagerProtocol as model
+    /// appens found devices to self.foundPeripherals[Peripherals] indexed dict, starting with [0]
+    /// - note: already called discovery methods defined in CBPeripheralProtocol
+    func didDiscover(_ central: CBCentralManagerProtocol,
+                     peripheral: CBPeripheralProtocol,
+                     advertisementData: [String : Any],
+                     rssi: NSNumber
+    ){
+        /// set a limiting range of greater than -74 dBm which is approx. a 10 ft radius of the phone
+        if rssi.intValue <= -75 { return }
+        
+        /// print(":\(#line) \(TAG).didDiscover() notified...")
+        let peripheralName = advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? nil
+
+        let _name = (peripheralName != nil) ? String(peripheralName!) : (peripheral.name != nil)
+                    ? String(peripheral.name!) : "NoName"
       
         let foundPeripheral: Peripheral = Peripheral(_peripheral: peripheral,
                                                      _name: _name,
@@ -100,61 +150,72 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
                                                      _rssi: rssi,
                                                      _discoverCount: 0)
         
-        if let index = foundPeripherals.firstIndex(
-            where: { $0.peripheral.identifier.uuidString == peripheral.identifier.uuidString }
-        ) {
+        if let index = foundPeripherals.firstIndex(where: {
+            $0.peripheral.identifier.uuidString == peripheral.identifier.uuidString
+        }){
             if foundPeripherals[index].discoverCount % 50 == 0 {
                 foundPeripherals[index].name = _name
                 foundPeripherals[index].rssi = rssi.intValue
                 foundPeripherals[index].discoverCount += 1
-
-            } else { foundPeripherals[index].discoverCount += 1 }
-
+            } else {
+                foundPeripherals[index].discoverCount += 1
+            }
         } else {
             foundPeripherals.append(foundPeripheral)
-            DispatchQueue.main.async { self.isSearching = false }
+            DispatchQueue.main.async { [self] in
+                print(":\(#line) \(TAG).didDiscover() scan complete.")
+                print(": has \(foundPeripherals.count) peripherals in list!")
+                self.isSearching = false
+            }
         }
     }
-    
-    
-    // -MARK: Central Managers device lifecycle delegates
-    ///
-    func didConnect(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol) {
-        guard let connectedPeripheral = connectedPeripheral else { return }
-        isConnected = true
-        connectedPeripheral.peripheral.delegate = self
-        connectedPeripheral.peripheral.discoverServices(nil)
-    }
-    
+
     func didFailToConnect(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol, error: Error?) {
         disconnectPeripheral()
     }
-    
-    func didDisconnect(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol, error: Error?) {
+
+    func didDisconnect(_ central: CBCentralManagerProtocol,
+                       peripheral: CBPeripheralProtocol,
+                       error: Error?
+    ){
         print("disconnect")
         resetConfigure()
     }
     
     func connectionEventDidOccur(_ central: CBCentralManagerProtocol, event: CBConnectionEvent, peripheral: CBPeripheralProtocol) {}
-    
-    func willRestoreState(_ central: CBCentralManagerProtocol, dict: [String : Any]) {}
-    
-    func didUpdateANCSAuthorization(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol) {}
-    
 
-    // -MARK: CoreBluetooth Peripheral delegate
+    func willRestoreState(_ central: CBCentralManagerProtocol, dict: [String : Any]) {}
+
+    func didUpdateANCSAuthorization(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol) {}
+
+
+    // -MARK: Peripheral delegates
+    ///
     ///
     func didDiscoverServices(_ peripheral: CBPeripheralProtocol, error: Error?) {
+        print(":\(#line) \(TAG).didDiscoverServices( ) notified...")
+        if error != nil {
+            print(":\(#line) - Error: \(String(describing: error))")
+        } else {
+            print(":\(#line) - CBPeripheralProtocol: \(peripheral)")
+        }
+
         peripheral.services?.forEach { service in
+            print(":\(#line) - found Service \(service)..., calls foundService.append( )!")
             let setService = Service(_uuid: service.uuid, _service: service)
             
             foundServices.append(setService)
+            print(":\(#line) - next calls discoverCharacteristics( )")
             peripheral.discoverCharacteristics(nil, for: service)
         }
     }
-    
+
     func didDiscoverCharacteristics(_ peripheral: CBPeripheralProtocol, service: CBService, error: Error?) {
+        print(":\(#line) \(TAG).didDiscoverCharacteristics( ) notified...")
+
         service.characteristics?.forEach { characteristic in
+            print(":\(#line) - service.uuid \(service.uuid) characteristic:")
+            print(characteristic)
             let setCharacteristic: Characteristic = Characteristic(_characteristic: characteristic,
                                                                    _description: "",
                                                                    _uuid: characteristic.uuid,
@@ -164,7 +225,7 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
             peripheral.readValue(for: characteristic)
         }
     }
-    
+
     func didUpdateValue(_ peripheral: CBPeripheralProtocol, characteristic: CBCharacteristic, error: Error?) {
         guard let characteristicValue = characteristic.value else { return }
         
@@ -173,7 +234,7 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
             foundCharacteristics[index].readValue = characteristicValue.map({ String(format:"%02x", $0) }).joined()
         }
     }
-    
+
     func didWriteValue(_ peripheral: CBPeripheralProtocol, descriptor: CBDescriptor, error: Error?) {
         
     }

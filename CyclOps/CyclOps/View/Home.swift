@@ -59,7 +59,8 @@ struct Home: View {
         }.frame(maxWidth: .infinity)
     }
     
-    /// main body object
+    // - MARK: main body view object
+    ///
     var body: some View {
         ZStack(alignment: .top, content: {
             Rectangle().foregroundColor(Color("viewBkg")).saveSize(in: $screenSize)
@@ -72,7 +73,7 @@ struct Home: View {
                 Spacer()
                 let addCam = Text("Add Camera").italic()
                 let savCam = Text("Save Cameras").italic()
-                Text("Tap \(addCam)to pair a new bluetooth enabled camera,\nor \(savCam) to select a different camera in your camera inventory.\n\nTap Start button to begin object detection using a connected and active camera.")
+                Text("Tap \(addCam) to pair a new bluetooth enabled camera,\nor \(savCam) to select a different camera in your camera inventory.\n\nTap Start button to begin object detection using a connected and active camera.")
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: screenSize.width / 1.328, maxHeight: screenSize.height / 4)
                 Spacer()

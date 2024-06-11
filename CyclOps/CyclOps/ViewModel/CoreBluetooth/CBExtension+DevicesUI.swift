@@ -15,6 +15,7 @@ extension CBViewModel {
             NavigationLink("",
                            destination: Devices(),
                            isActive: isDetailViewLinkActive).frame(width: 0, height: 0)
+        /// print(":\(#line) CBViewModel.navigationToDetailView: \(navigationToDetailView)")
         return navigationToDetailView
     }
 }
