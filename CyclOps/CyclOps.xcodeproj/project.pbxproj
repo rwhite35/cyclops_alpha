@@ -30,10 +30,11 @@
 		6B5DCD392C10D8BA000C942F /* CBPeripheralMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD382C10D8BA000C942F /* CBPeripheralMock.swift */; };
 		6B5DCD3B2C10D8EE000C942F /* ServiceCharacteristicsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD3A2C10D8EE000C942F /* ServiceCharacteristicsMock.swift */; };
 		6B5DCD3D2C10DBCD000C942F /* CBExtension+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD3C2C10DBCD000C942F /* CBExtension+Delegate.swift */; };
-		6B5DCD3F2C10DC7A000C942F /* CBExtension+DevicesUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD3E2C10DC7A000C942F /* CBExtension+DevicesUI.swift */; };
+		6B5DCD3F2C10DC7A000C942F /* CBExtension+DeviceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD3E2C10DC7A000C942F /* CBExtension+DeviceDetails.swift */; };
 		6B8B5D342C0FB1AE000D2BD3 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6B8B5D332C0FB1AE000D2BD3 /* Fonts */; };
 		6B8B5D372C0FBC90000D2BD3 /* DetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B5D362C0FBC90000D2BD3 /* DetectionManager.swift */; };
 		6B8B5D392C0FCAE4000D2BD3 /* ExtendedUIStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B5D382C0FCAE4000D2BD3 /* ExtendedUIStyle.swift */; };
+		6B9141F72C18C00B004F9792 /* DeviceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9141F62C18C00B004F9792 /* DeviceDetails.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,10 +82,11 @@
 		6B5DCD382C10D8BA000C942F /* CBPeripheralMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBPeripheralMock.swift; sourceTree = "<group>"; };
 		6B5DCD3A2C10D8EE000C942F /* ServiceCharacteristicsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCharacteristicsMock.swift; sourceTree = "<group>"; };
 		6B5DCD3C2C10DBCD000C942F /* CBExtension+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBExtension+Delegate.swift"; sourceTree = "<group>"; };
-		6B5DCD3E2C10DC7A000C942F /* CBExtension+DevicesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBExtension+DevicesUI.swift"; sourceTree = "<group>"; };
+		6B5DCD3E2C10DC7A000C942F /* CBExtension+DeviceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBExtension+DeviceDetails.swift"; sourceTree = "<group>"; };
 		6B8B5D332C0FB1AE000D2BD3 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		6B8B5D362C0FBC90000D2BD3 /* DetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionManager.swift; sourceTree = "<group>"; };
 		6B8B5D382C0FCAE4000D2BD3 /* ExtendedUIStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIStyle.swift; sourceTree = "<group>"; };
+		6B9141F62C18C00B004F9792 /* DeviceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetails.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				6B02BD112C0F76E10035E44E /* Home.swift */,
 				6B02BD132C0F76FB0035E44E /* Camera.swift */,
 				6B02BD152C0F77420035E44E /* Devices.swift */,
+				6B9141F62C18C00B004F9792 /* DeviceDetails.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -248,7 +251,7 @@
 			children = (
 				6B5DCD342C10D7B0000C942F /* CBViewModel.swift */,
 				6B5DCD3C2C10DBCD000C942F /* CBExtension+Delegate.swift */,
-				6B5DCD3E2C10DC7A000C942F /* CBExtension+DevicesUI.swift */,
+				6B5DCD3E2C10DC7A000C942F /* CBExtension+DeviceDetails.swift */,
 			);
 			path = CoreBluetooth;
 			sourceTree = "<group>";
@@ -400,9 +403,10 @@
 				6B5DCD3D2C10DBCD000C942F /* CBExtension+Delegate.swift in Sources */,
 				6B5DCD2D2C10D16D000C942F /* CBPeripheralProtocolDelegate.swift in Sources */,
 				6B02BCE72C0F615D0035E44E /* ContentView.swift in Sources */,
+				6B9141F72C18C00B004F9792 /* DeviceDetails.swift in Sources */,
 				6B5DCD3B2C10D8EE000C942F /* ServiceCharacteristicsMock.swift in Sources */,
 				6B02BD1C2C0F78EB0035E44E /* DevicesUI.swift in Sources */,
-				6B5DCD3F2C10DC7A000C942F /* CBExtension+DevicesUI.swift in Sources */,
+				6B5DCD3F2C10DC7A000C942F /* CBExtension+DeviceDetails.swift in Sources */,
 				6B02BD162C0F77420035E44E /* Devices.swift in Sources */,
 				6B02BD122C0F76E10035E44E /* Home.swift in Sources */,
 				6B5DCD2A2C10CFF7000C942F /* Peripheral.swift in Sources */,

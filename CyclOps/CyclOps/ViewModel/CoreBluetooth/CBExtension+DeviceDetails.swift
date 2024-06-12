@@ -8,18 +8,6 @@
 import SwiftUI
 import CoreBluetooth
 
-//MARK: - Navigation Items
-extension CBViewModel {
-    func navigationToDetailView(isDetailViewLinkActive: Binding<Bool>) -> some View {
-        let navigationToDetailView =
-            NavigationLink("",
-                           destination: Devices(),
-                           isActive: isDetailViewLinkActive).frame(width: 0, height: 0)
-        /// print(":\(#line) CBViewModel.navigationToDetailView: \(navigationToDetailView)")
-        return navigationToDetailView
-    }
-}
-
 //MARK: - View Items
 extension CBViewModel {
     func UIButtonView(proxy: GeometryProxy, text: String) -> some View {

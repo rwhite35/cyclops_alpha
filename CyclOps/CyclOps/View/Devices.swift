@@ -11,16 +11,16 @@ import SwiftUI
 
 struct Devices: View {
     @EnvironmentObject var cbModel: CBViewModel
+    @State var activeSheet: DetailsActiveSheet?
 
     /// view properties
-    let TAG = "DevicesView"
-    @State var activeSheet: DevicesActiveSheet?
+    let TAG = "Devices"
     
     // - MARK: main body view object
+    /// produces a list of connected bluetooth devices
+    ///
     var body: some View {
         ZStack {
-            cbModel.navigationToDetailView(isDetailViewLinkActive:$cbModel.isConnected)
-            
             GeometryReader { proxy in
                 VStack {
                     if !cbModel.isSearching {
@@ -33,8 +33,9 @@ struct Devices: View {
                                 text: cbModel.isSearching ? "Stop Scan" : "Start Scan"
                             )
                         }
-                        Text(cbModel.isBlePower ? "" : "Check Settings, Bluetooth is Off!").padding(10)
-                        List { PeripheralOptions() } /// each device found
+                        Text(cbModel.isBlePower ? "" : "Check Settings, Bluetooth is Off!")
+                            .padding(10)
+                        PeripheralOptions()
 
                     } else { /// scan in progress, button to stop scan.
                         Color.gray.opacity(0.6).edgesIgnoringSafeArea(.all)
@@ -57,6 +58,24 @@ struct Devices: View {
                 }
             }
         }
+        .onChange(of: cbModel.showDeviceDetails) { value in
+            if value { activeSheet = .deviceDetails }
+            else { activeSheet = nil }
+        }
+        .onChange(of: cbModel.showHomeView) { value in
+            if value { activeSheet = .homeView }
+            else { activeSheet = nil }
+        }
+        .sheet(item: $activeSheet, onDismiss: {
+            cbModel.showDeviceDetails = false
+            cbModel.showHomeView = false
+            cbModel.stopScan()
+        }) { item in
+            switch item {
+            case .deviceDetails: DeviceDetails(deviceIdentifier: cbModel.getDeviceIdentifier())
+            case .homeView: Home(model: HomeUI())
+            }
+        }
     }
     
     /// Peripherals found as clickable button with connectPeripheral( ) action.
@@ -65,17 +84,20 @@ struct Devices: View {
     /// @see CBPeripheralProtocol for avialable properties
     struct PeripheralOptions: View {
         @EnvironmentObject var cbModel: CBViewModel
+        @State var deviceIdentifier: DeviceIdentifier?
+
         var body: some View {
-            ForEach(0..<cbModel.foundPeripherals.count, id: \.self) { num in
-                Button(action: {
-                    cbModel.connectPeripheral(cbModel.foundPeripherals[num])
-                    print(":\(#line) cbModel.foundPeripherals[\(num)] connectable: ")
-                    /// print(cbModel.foundPeripherals[num].peripheral)
-                }) {
-                    HStack {
-                        Text("\(cbModel.foundPeripherals[num].name)")
-                        Spacer()
-                        Text("\(cbModel.foundPeripherals[num].rssi) dBm")
+            NavigationStack {
+                List(cbModel.foundPeripherals) { peripheral in
+                    Button(action: {
+                        cbModel.connectPeripheral(peripheral)
+                        deviceIdentifier = cbModel.getDeviceIdentifier()
+                    }) {
+                        HStack {
+                            Text("\(peripheral.name)")
+                            Spacer()
+                            Text("\(peripheral.rssi) dBm")
+                        }
                     }
                 }
             }
@@ -84,7 +106,7 @@ struct Devices: View {
 }
 
 /// ActiveSheets for this view stack
-enum DevicesActiveSheet: Identifiable {
-    case bledevice, camera
+enum DetailsActiveSheet: Identifiable {
+    case deviceDetails, homeView
     var id: Int { hashValue }
 }

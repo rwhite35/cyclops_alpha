@@ -13,14 +13,23 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
     @Published var isBlePower: Bool = false
     @Published var isSearching: Bool = false
     @Published var isConnected: Bool = false
+    
+    /// ActiveSheet triggers
+    @Published var showDeviceDetails = false
+    @Published var showDeviceList = false
+    @Published var showHomeView = false
 
+    /// all peripherals found in scan operation
     @Published var foundPeripherals: [Peripheral] = []
     @Published var foundServices: [Service] = []
     @Published var foundCharacteristics: [Characteristic] = []
 
+    /// a peripheral selected from Devices List view
     private var centralManager: CBCentralManagerProtocol!
     private var connectedPeripheral: Peripheral!
+    private var deviceIdentifier: DeviceIdentifier?
 
+    /// this objects stable ID
     private let serviceUUID: CBUUID = CBUUID()
 
     override init() {
@@ -63,20 +72,33 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
     
     /// device button action method from startScan( ) -> scanForPeripherals( ) -> foundPeripherals[n]
     /// starts connection, auto calls CBCentralManager discovery for Services, Characteristics and Descriptors
-    func connectPeripheral(_ selectPeripheral: Peripheral?) {
-        let dname = selectPeripheral?.peripheral.name ?? "NoName Device"
+    func connectPeripheral(_ selectedPeripheral: Peripheral?) {
+        let dname = selectedPeripheral?.peripheral.name ?? "NoName Device"
         print(":\(#line) \(TAG).connectPeripheral working...")
-        
-        guard let connectPeripheral = selectPeripheral else {
+
+        guard let connectPeripheral = selectedPeripheral else {
             print("WARN: \(TAG).connectPeripheral unable to connect \(dname), returns here.")
             return
         }
         /// assigns this device to CBViewModels Peripheral
-        connectedPeripheral = selectPeripheral
+        connectedPeripheral = selectedPeripheral
 
         /// wrapper for CBCentralManagerProtocol.connect( ), triggers device discovery methods
         centralManager.connect(connectPeripheral.peripheral, options: nil)
+        
+        /// convenience method for calling DeviceDetails( ) on navigation
+        deviceIdentifier = saveDeviceIdentifier(selectedPeripheral!)
     }
+    
+    func saveDeviceIdentifier(_ selectedPeripheral: Peripheral) -> DeviceIdentifier {
+        return DeviceIdentifier(
+            name: selectedPeripheral.name,
+            identifier: selectedPeripheral.peripheral.identifier,
+            id: selectedPeripheral.id
+        )
+    }
+    
+    func getDeviceIdentifier() -> DeviceIdentifier { return self.deviceIdentifier! }
     
     /// wrapper method for CBCentralManager.stopScan( )
     /// - triggers resetConfiguration( ) from
@@ -104,7 +126,7 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
         if central.state == .poweredOn { isBlePower = true }
         else { isBlePower = false }
         print(":\(#line) \(TAG).didUpdateState( ) notified...")
-        print(": - centralManager.State.powerOn is \(isBlePower)!")
+        /// print(": - centralManager.State.powerOn is \(isBlePower)!")
     }
 
     /// delegate notified on CBCentralManager.connect( ) :: CBPeripheralProtocol.connect( )
@@ -119,12 +141,11 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
             print(":WARN \(TAG).didConnect can't assign \(cpname) to local, returns here.")
             return
         }
-        isConnected = true
-        print(": - assigns self as delegate for connectedPeripheral \(cpname)")
-        
         /// self assigned as CBCentralManagerDelegate, notifies didDiscoverServices( )
         connectedPeripheral.peripheral.delegate = self
         connectedPeripheral.peripheral.discoverServices(nil)
+        isConnected = true
+        showDeviceDetails = isConnected
     }
 
     /// create a new device instance using CBCentralManagerProtocol as model
@@ -163,14 +184,16 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
         } else {
             foundPeripherals.append(foundPeripheral)
             DispatchQueue.main.async { [self] in
-                print(":\(#line) \(TAG).didDiscover() scan complete.")
-                print(": has \(foundPeripherals.count) peripherals in list!")
+                /// print("\(TAG).didDiscover() :\(#line) discovered \(foundPeripherals.count) devices in list.")
                 self.isSearching = false
             }
         }
     }
 
-    func didFailToConnect(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol, error: Error?) {
+    func didFailToConnect(_ central: CBCentralManagerProtocol, 
+                          peripheral: CBPeripheralProtocol,
+                          error: Error?
+    ){
         disconnectPeripheral()
     }
 
@@ -182,11 +205,13 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
         resetConfigure()
     }
     
-    func connectionEventDidOccur(_ central: CBCentralManagerProtocol, event: CBConnectionEvent, peripheral: CBPeripheralProtocol) {}
+    func connectionEventDidOccur(_ central: CBCentralManagerProtocol, 
+                                 event: CBConnectionEvent,
+                                 peripheral: CBPeripheralProtocol){}
 
-    func willRestoreState(_ central: CBCentralManagerProtocol, dict: [String : Any]) {}
+    func willRestoreState(_ central: CBCentralManagerProtocol, dict: [String : Any]){}
 
-    func didUpdateANCSAuthorization(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol) {}
+    func didUpdateANCSAuthorization(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol){}
 
 
     // -MARK: Peripheral delegates
@@ -238,4 +263,15 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
     func didWriteValue(_ peripheral: CBPeripheralProtocol, descriptor: CBDescriptor, error: Error?) {
         
     }
+}
+
+public protocol ConvenientIdentifier {
+    var name: String? { get set }
+    var identifier: UUID { get set }
+}
+
+struct DeviceIdentifier: ConvenientIdentifier, Identifiable, Hashable {
+    var name: String?
+    var identifier: UUID
+    var id: ObjectIdentifier
 }
