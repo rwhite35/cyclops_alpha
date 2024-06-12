@@ -129,7 +129,7 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
         /// print(": - centralManager.State.powerOn is \(isBlePower)!")
     }
 
-    /// delegate notified on CBCentralManager.connect( ) :: CBPeripheralProtocol.connect( )
+    /// delegate notified on successful CBCentralManager.connect( ) -> CBPeripheralProtocol.connect( )
     /// depends on CBPeripheralProtocol.discoveryServices([CBUUID )
     func didConnect(_ central: CBCentralManagerProtocol,
                     peripheral: CBPeripheralProtocol
@@ -216,36 +216,52 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
 
     // -MARK: Peripheral delegates
     ///
-    ///
+    /// notified on successfull CBServices for the connected CBPeripheral.
+    /// will queue a call to Peripherals discoverCharacterics after each found service is appended to foundServices object.
     func didDiscoverServices(_ peripheral: CBPeripheralProtocol, error: Error?) {
-        print(":\(#line) \(TAG).didDiscoverServices( ) notified...")
-        if error != nil {
-            print(":\(#line) - Error: \(String(describing: error))")
-        } else {
-            print(":\(#line) - CBPeripheralProtocol: \(peripheral)")
-        }
+        print("\(TAG).didDiscoverServices( ) :\(#line) notified...")
+        
+        if error != nil { print(":\(#line) - Error: \(String(describing: error))") }
+        else { print("- :\(#line) getting services CBPeripheral: \(peripheral)") }
 
         peripheral.services?.forEach { service in
-            print(":\(#line) - found Service \(service)..., calls foundService.append( )!")
+            print("- :\(#line) appending Service \(service)")
             let setService = Service(_uuid: service.uuid, _service: service)
-            
             foundServices.append(setService)
-            print(":\(#line) - next calls discoverCharacteristics( )")
+
+            print("- :\(#line) queue peripheral.discoverCharacteristics call.")
             peripheral.discoverCharacteristics(nil, for: service)
         }
     }
 
-    func didDiscoverCharacteristics(_ peripheral: CBPeripheralProtocol, service: CBService, error: Error?) {
-        print(":\(#line) \(TAG).didDiscoverCharacteristics( ) notified...")
+    /// notified on successful Peripheral.discoverCharacteristics for each CBService in foundServices object.
+    /// can return one, none or more.
+    func didDiscoverCharacteristics(_ peripheral: CBPeripheralProtocol,
+                                    service: CBService,
+                                    error: Error?
+    ){
+        print("\(TAG).didDiscoverCharacteristics( ) :\(#line) notified...")
+        var emptyDefault = "Not Provided"
+        var nonEmptyDesc = emptyDefault
+        var nonEmptyValue = emptyDefault
+        if peripheral.identifier == deviceIdentifier?.identifier {
+            nonEmptyDesc = deviceIdentifier?.name ?? emptyDefault
+        }
 
         service.characteristics?.forEach { characteristic in
-            print(":\(#line) - service.uuid \(service.uuid) characteristic:")
-            print(characteristic)
+            /// print("- :\(#line) getting characteristics for service.uuid \(service.uuid):")
+            /// print(characteristic)
+
+            if(characteristic.value != nil) {
+               nonEmptyValue = String(decoding: characteristic.value!, as: UTF8.self)
+            }
+
             let setCharacteristic: Characteristic = Characteristic(_characteristic: characteristic,
-                                                                   _description: "",
+                                                                   _description: nonEmptyDesc,
                                                                    _uuid: characteristic.uuid,
-                                                                   _readValue: "",
+                                                                   _readValue: nonEmptyValue,
                                                                    _service: characteristic.service!)
+            print("- :\(#line) appending Characteristic; calls CBPeripheral.readValue on complete.")
             foundCharacteristics.append(setCharacteristic)
             peripheral.readValue(for: characteristic)
         }

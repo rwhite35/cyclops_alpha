@@ -13,6 +13,7 @@ class Characteristic: Identifiable {
     var uuid: CBUUID
     var readValue: String
     var service: CBService
+    var notProvided = "Not Provided"
 
     init(_characteristic: CBCharacteristic,
          _description: String,
@@ -22,9 +23,9 @@ class Characteristic: Identifiable {
         
         id = UUID()
         characteristic = _characteristic
-        description = _description == "" ? "NoName" : _description
+        description = !_description.isEmpty ? _description : notProvided
         uuid = _uuid
-        readValue = _readValue == "" ? "NoData" : _readValue
+        readValue = !_readValue.isEmpty ? _readValue : notProvided
         service = _service
     }
 }
