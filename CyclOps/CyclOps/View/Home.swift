@@ -21,7 +21,27 @@ struct Home: View {
     /// - Devices: add a bluetooth camera(s)
     /// - Camera: list of paired camera options
     @ViewBuilder
-    func homeAppBar() -> some View {
+    func homeNav() -> some View {
+        /**
+        TabView {
+            NavigationStack {
+                Devices().environmentObject(CBViewModel())
+            }
+            .tabItem {
+                Label("Add Camera", systemImage:"camera")
+            }
+            NavigationStack {
+                Camera().navigationTitle("Saved Cameras")
+            }
+            .tabItem {
+                Label("Saved Camera", systemImage:"camera.on.rectangle.fill")
+            }
+        }.padding().frame(
+            minWidth: 300, maxWidth: .infinity,
+            minHeight: 300, maxHeight: .infinity
+        )
+        */
+        
         ZStack {
             Rectangle().foregroundColor(Color.accentColor)
             HStack {
@@ -68,7 +88,7 @@ struct Home: View {
                 alignment: .center,
                 spacing: 20
             ){
-                homeAppBar()
+                homeNav()
                 Text("Hello Safe Cyclist!")
                 Spacer()
                 let addCam = Text("Add Camera").italic()

@@ -241,7 +241,7 @@ class CBViewModel: NSObject, ObservableObject, CBPeripheralProtocolDelegate, CBC
                                     error: Error?
     ){
         print("\(TAG).didDiscoverCharacteristics( ) :\(#line) notified...")
-        var emptyDefault = "Not Provided"
+        let emptyDefault = "Not Provided"
         var nonEmptyDesc = emptyDefault
         var nonEmptyValue = emptyDefault
         if peripheral.identifier == deviceIdentifier?.identifier {
