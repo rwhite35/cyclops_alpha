@@ -4,6 +4,7 @@
 //
 //  Created by Ron White on 6/4/24.
 //
+import UIKit
 import SwiftUI
 
 struct ContentView: View {
@@ -34,10 +35,10 @@ struct ViewStackTop: View {
         VStack {
             /// Text("Opening your child \(child)")
             switch child {
-            case "Home": Home(model: HomeUI())
-            case "Settings": Devices()      /// temporary, will be Settings
-            case "Quick Setup": Camera()    /// temporary, will be QuickSetup
-            default: Home(model: HomeUI())
+                case "Home": Home(model: HomeUI())
+                case "Settings": Devices()
+                case "Quick Setup": Camera(model: CameraUI())
+                default: Home(model: HomeUI())
             }
         }
         Button("Remove from stack") {

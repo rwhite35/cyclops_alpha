@@ -20,21 +20,24 @@
 		6B02BD182C0F78C30035E44E /* HomeUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD172C0F78C30035E44E /* HomeUI.swift */; };
 		6B02BD1A2C0F78D40035E44E /* CameraUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD192C0F78D40035E44E /* CameraUI.swift */; };
 		6B02BD1C2C0F78EB0035E44E /* DevicesUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B02BD1B2C0F78EB0035E44E /* DevicesUI.swift */; };
-		6B5DCD282C10CB58000C942F /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD272C10CB58000C942F /* Service.swift */; };
-		6B5DCD2A2C10CFF7000C942F /* Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD292C10CFF7000C942F /* Peripheral.swift */; };
-		6B5DCD2D2C10D16D000C942F /* CBPeripheralProtocolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD2C2C10D16D000C942F /* CBPeripheralProtocolDelegate.swift */; };
-		6B5DCD2F2C10D5E8000C942F /* Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD2E2C10D5E8000C942F /* Characteristic.swift */; };
-		6B5DCD322C10D68D000C942F /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD312C10D68D000C942F /* Mock.swift */; };
 		6B5DCD352C10D7B0000C942F /* CBViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD342C10D7B0000C942F /* CBViewModel.swift */; };
-		6B5DCD372C10D885000C942F /* CBCentralManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD362C10D885000C942F /* CBCentralManagerMock.swift */; };
-		6B5DCD392C10D8BA000C942F /* CBPeripheralMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD382C10D8BA000C942F /* CBPeripheralMock.swift */; };
-		6B5DCD3B2C10D8EE000C942F /* ServiceCharacteristicsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD3A2C10D8EE000C942F /* ServiceCharacteristicsMock.swift */; };
 		6B5DCD3D2C10DBCD000C942F /* CBExtension+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD3C2C10DBCD000C942F /* CBExtension+Delegate.swift */; };
 		6B5DCD3F2C10DC7A000C942F /* CBExtension+DeviceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B5DCD3E2C10DC7A000C942F /* CBExtension+DeviceDetails.swift */; };
 		6B8B5D342C0FB1AE000D2BD3 /* Fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6B8B5D332C0FB1AE000D2BD3 /* Fonts */; };
 		6B8B5D372C0FBC90000D2BD3 /* DetectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B5D362C0FBC90000D2BD3 /* DetectionManager.swift */; };
 		6B8B5D392C0FCAE4000D2BD3 /* ExtendedUIStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B8B5D382C0FCAE4000D2BD3 /* ExtendedUIStyle.swift */; };
 		6B9141F72C18C00B004F9792 /* DeviceDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6B9141F62C18C00B004F9792 /* DeviceDetails.swift */; };
+		6BB034F02C1BD77700B34CAE /* Model in Resources */ = {isa = PBXBuildFile; fileRef = 6BB034EF2C1BD77700B34CAE /* Model */; };
+		6BB2E2322C1B425100D70436 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BB2E2312C1B425100D70436 /* AppDelegate.swift */; };
+		6BD236CD2C1BDAC00075E456 /* Connected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236BE2C1BDAC00075E456 /* Connected.swift */; };
+		6BD236CE2C1BDAC00075E456 /* CBPeripheralProtocolDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C02C1BDAC00075E456 /* CBPeripheralProtocolDelegate.swift */; };
+		6BD236CF2C1BDAC00075E456 /* CBCentralManagerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C22C1BDAC00075E456 /* CBCentralManagerMock.swift */; };
+		6BD236D02C1BDAC00075E456 /* CBPeripheralMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C32C1BDAC00075E456 /* CBPeripheralMock.swift */; };
+		6BD236D12C1BDAC00075E456 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C42C1BDAC00075E456 /* Mock.swift */; };
+		6BD236D22C1BDAC00075E456 /* ServiceCharacteristicsMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C52C1BDAC00075E456 /* ServiceCharacteristicsMock.swift */; };
+		6BD236D32C1BDAC00075E456 /* Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C72C1BDAC00075E456 /* Characteristic.swift */; };
+		6BD236D42C1BDAC00075E456 /* Peripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C82C1BDAC00075E456 /* Peripheral.swift */; };
+		6BD236D52C1BDAC00075E456 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BD236C92C1BDAC00075E456 /* Service.swift */; };
 		6BE58D622C1A3E8F00BB983D /* AVViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6BE58D612C1A3E8F00BB983D /* AVViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -73,21 +76,24 @@
 		6B02BD172C0F78C30035E44E /* HomeUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeUI.swift; sourceTree = "<group>"; };
 		6B02BD192C0F78D40035E44E /* CameraUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraUI.swift; sourceTree = "<group>"; };
 		6B02BD1B2C0F78EB0035E44E /* DevicesUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesUI.swift; sourceTree = "<group>"; };
-		6B5DCD272C10CB58000C942F /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		6B5DCD292C10CFF7000C942F /* Peripheral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Peripheral.swift; sourceTree = "<group>"; };
-		6B5DCD2C2C10D16D000C942F /* CBPeripheralProtocolDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBPeripheralProtocolDelegate.swift; sourceTree = "<group>"; };
-		6B5DCD2E2C10D5E8000C942F /* Characteristic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Characteristic.swift; sourceTree = "<group>"; };
-		6B5DCD312C10D68D000C942F /* Mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		6B5DCD342C10D7B0000C942F /* CBViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBViewModel.swift; sourceTree = "<group>"; };
-		6B5DCD362C10D885000C942F /* CBCentralManagerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBCentralManagerMock.swift; sourceTree = "<group>"; };
-		6B5DCD382C10D8BA000C942F /* CBPeripheralMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CBPeripheralMock.swift; sourceTree = "<group>"; };
-		6B5DCD3A2C10D8EE000C942F /* ServiceCharacteristicsMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceCharacteristicsMock.swift; sourceTree = "<group>"; };
 		6B5DCD3C2C10DBCD000C942F /* CBExtension+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBExtension+Delegate.swift"; sourceTree = "<group>"; };
 		6B5DCD3E2C10DC7A000C942F /* CBExtension+DeviceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CBExtension+DeviceDetails.swift"; sourceTree = "<group>"; };
 		6B8B5D332C0FB1AE000D2BD3 /* Fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Fonts; sourceTree = "<group>"; };
 		6B8B5D362C0FBC90000D2BD3 /* DetectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetectionManager.swift; sourceTree = "<group>"; };
 		6B8B5D382C0FCAE4000D2BD3 /* ExtendedUIStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtendedUIStyle.swift; sourceTree = "<group>"; };
 		6B9141F62C18C00B004F9792 /* DeviceDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetails.swift; sourceTree = "<group>"; };
+		6BB034EF2C1BD77700B34CAE /* Model */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Model; sourceTree = "<group>"; };
+		6BB2E2312C1B425100D70436 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6BD236BE2C1BDAC00075E456 /* Connected.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Connected.swift; sourceTree = "<group>"; };
+		6BD236C02C1BDAC00075E456 /* CBPeripheralProtocolDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBPeripheralProtocolDelegate.swift; sourceTree = "<group>"; };
+		6BD236C22C1BDAC00075E456 /* CBCentralManagerMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBCentralManagerMock.swift; sourceTree = "<group>"; };
+		6BD236C32C1BDAC00075E456 /* CBPeripheralMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CBPeripheralMock.swift; sourceTree = "<group>"; };
+		6BD236C42C1BDAC00075E456 /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
+		6BD236C52C1BDAC00075E456 /* ServiceCharacteristicsMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceCharacteristicsMock.swift; sourceTree = "<group>"; };
+		6BD236C72C1BDAC00075E456 /* Characteristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Characteristic.swift; sourceTree = "<group>"; };
+		6BD236C82C1BDAC00075E456 /* Peripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Peripheral.swift; sourceTree = "<group>"; };
+		6BD236C92C1BDAC00075E456 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		6BE58D612C1A3E8F00BB983D /* AVViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,7 +145,8 @@
 		6B02BCE32C0F615D0035E44E /* CyclOps */ = {
 			isa = PBXGroup;
 			children = (
-				6B5DCD242C10C96F000C942F /* Model */,
+				6BB034EF2C1BD77700B34CAE /* Model */,
+				6BD236CC2C1BDAC00075E456 /* Model */,
 				6B8B5D352C0FBBFF000D2BD3 /* ObjectDetection */,
 				6B8B5D332C0FB1AE000D2BD3 /* Fonts */,
 				6B02BD102C0F76B50035E44E /* ViewModel */,
@@ -150,6 +157,7 @@
 				6B02BCE82C0F615F0035E44E /* Assets.xcassets */,
 				6B02BCEA2C0F615F0035E44E /* Preview Content */,
 				6B8B5D382C0FCAE4000D2BD3 /* ExtendedUIStyle.swift */,
+				6BB2E2312C1B425100D70436 /* AppDelegate.swift */,
 			);
 			path = CyclOps;
 			sourceTree = "<group>";
@@ -202,53 +210,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		6B5DCD242C10C96F000C942F /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				6B5DCD252C10C98B000C942F /* CoreBluetooth */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		6B5DCD252C10C98B000C942F /* CoreBluetooth */ = {
-			isa = PBXGroup;
-			children = (
-				6B5DCD302C10D666000C942F /* Mock */,
-				6B5DCD2B2C10D14B000C942F /* Delegate */,
-				6B5DCD262C10CB27000C942F /* Store */,
-			);
-			path = CoreBluetooth;
-			sourceTree = "<group>";
-		};
-		6B5DCD262C10CB27000C942F /* Store */ = {
-			isa = PBXGroup;
-			children = (
-				6B5DCD272C10CB58000C942F /* Service.swift */,
-				6B5DCD292C10CFF7000C942F /* Peripheral.swift */,
-				6B5DCD2E2C10D5E8000C942F /* Characteristic.swift */,
-			);
-			path = Store;
-			sourceTree = "<group>";
-		};
-		6B5DCD2B2C10D14B000C942F /* Delegate */ = {
-			isa = PBXGroup;
-			children = (
-				6B5DCD2C2C10D16D000C942F /* CBPeripheralProtocolDelegate.swift */,
-			);
-			path = Delegate;
-			sourceTree = "<group>";
-		};
-		6B5DCD302C10D666000C942F /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				6B5DCD312C10D68D000C942F /* Mock.swift */,
-				6B5DCD362C10D885000C942F /* CBCentralManagerMock.swift */,
-				6B5DCD382C10D8BA000C942F /* CBPeripheralMock.swift */,
-				6B5DCD3A2C10D8EE000C942F /* ServiceCharacteristicsMock.swift */,
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
 		6B5DCD332C10D716000C942F /* CoreBluetooth */ = {
 			isa = PBXGroup;
 			children = (
@@ -265,6 +226,62 @@
 				6B8B5D362C0FBC90000D2BD3 /* DetectionManager.swift */,
 			);
 			path = ObjectDetection;
+			sourceTree = "<group>";
+		};
+		6BD236BF2C1BDAC00075E456 /* AVCaptureDevice */ = {
+			isa = PBXGroup;
+			children = (
+				6BD236BE2C1BDAC00075E456 /* Connected.swift */,
+			);
+			path = AVCaptureDevice;
+			sourceTree = "<group>";
+		};
+		6BD236C12C1BDAC00075E456 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				6BD236C02C1BDAC00075E456 /* CBPeripheralProtocolDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		6BD236C62C1BDAC00075E456 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				6BD236C22C1BDAC00075E456 /* CBCentralManagerMock.swift */,
+				6BD236C32C1BDAC00075E456 /* CBPeripheralMock.swift */,
+				6BD236C42C1BDAC00075E456 /* Mock.swift */,
+				6BD236C52C1BDAC00075E456 /* ServiceCharacteristicsMock.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		6BD236CA2C1BDAC00075E456 /* Store */ = {
+			isa = PBXGroup;
+			children = (
+				6BD236C72C1BDAC00075E456 /* Characteristic.swift */,
+				6BD236C82C1BDAC00075E456 /* Peripheral.swift */,
+				6BD236C92C1BDAC00075E456 /* Service.swift */,
+			);
+			path = Store;
+			sourceTree = "<group>";
+		};
+		6BD236CB2C1BDAC00075E456 /* CoreBluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				6BD236C12C1BDAC00075E456 /* Delegate */,
+				6BD236C62C1BDAC00075E456 /* Mock */,
+				6BD236CA2C1BDAC00075E456 /* Store */,
+			);
+			path = CoreBluetooth;
+			sourceTree = "<group>";
+		};
+		6BD236CC2C1BDAC00075E456 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6BD236BF2C1BDAC00075E456 /* AVCaptureDevice */,
+				6BD236CB2C1BDAC00075E456 /* CoreBluetooth */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		6BE58D602C1A3E6D00BB983D /* AVFoundation */ = {
@@ -379,6 +396,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6BB034F02C1BD77700B34CAE /* Model in Resources */,
 				6B8B5D342C0FB1AE000D2BD3 /* Fonts in Resources */,
 				6B02BCEC2C0F615F0035E44E /* Preview Assets.xcassets in Resources */,
 				6B02BCE92C0F615F0035E44E /* Assets.xcassets in Resources */,
@@ -408,27 +426,29 @@
 			files = (
 				6B8B5D392C0FCAE4000D2BD3 /* ExtendedUIStyle.swift in Sources */,
 				6B02BD182C0F78C30035E44E /* HomeUI.swift in Sources */,
-				6B5DCD392C10D8BA000C942F /* CBPeripheralMock.swift in Sources */,
+				6BD236D52C1BDAC00075E456 /* Service.swift in Sources */,
 				6B02BD142C0F76FB0035E44E /* Camera.swift in Sources */,
-				6B5DCD372C10D885000C942F /* CBCentralManagerMock.swift in Sources */,
 				6B5DCD3D2C10DBCD000C942F /* CBExtension+Delegate.swift in Sources */,
-				6B5DCD2D2C10D16D000C942F /* CBPeripheralProtocolDelegate.swift in Sources */,
+				6BD236CF2C1BDAC00075E456 /* CBCentralManagerMock.swift in Sources */,
 				6B02BCE72C0F615D0035E44E /* ContentView.swift in Sources */,
 				6B9141F72C18C00B004F9792 /* DeviceDetails.swift in Sources */,
-				6B5DCD3B2C10D8EE000C942F /* ServiceCharacteristicsMock.swift in Sources */,
+				6BD236D42C1BDAC00075E456 /* Peripheral.swift in Sources */,
 				6B02BD1C2C0F78EB0035E44E /* DevicesUI.swift in Sources */,
+				6BD236D02C1BDAC00075E456 /* CBPeripheralMock.swift in Sources */,
 				6B5DCD3F2C10DC7A000C942F /* CBExtension+DeviceDetails.swift in Sources */,
+				6BD236CD2C1BDAC00075E456 /* Connected.swift in Sources */,
+				6BB2E2322C1B425100D70436 /* AppDelegate.swift in Sources */,
 				6BE58D622C1A3E8F00BB983D /* AVViewModel.swift in Sources */,
+				6BD236CE2C1BDAC00075E456 /* CBPeripheralProtocolDelegate.swift in Sources */,
 				6B02BD162C0F77420035E44E /* Devices.swift in Sources */,
 				6B02BD122C0F76E10035E44E /* Home.swift in Sources */,
-				6B5DCD2A2C10CFF7000C942F /* Peripheral.swift in Sources */,
 				6B02BCE52C0F615D0035E44E /* CyclOpsApp.swift in Sources */,
-				6B5DCD282C10CB58000C942F /* Service.swift in Sources */,
-				6B5DCD322C10D68D000C942F /* Mock.swift in Sources */,
+				6BD236D12C1BDAC00075E456 /* Mock.swift in Sources */,
+				6BD236D22C1BDAC00075E456 /* ServiceCharacteristicsMock.swift in Sources */,
 				6B8B5D372C0FBC90000D2BD3 /* DetectionManager.swift in Sources */,
 				6B5DCD352C10D7B0000C942F /* CBViewModel.swift in Sources */,
-				6B5DCD2F2C10D5E8000C942F /* Characteristic.swift in Sources */,
 				6B02BD1A2C0F78D40035E44E /* CameraUI.swift in Sources */,
+				6BD236D32C1BDAC00075E456 /* Characteristic.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,7 +628,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ronwhite.CyclOps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rwhite.CyclOps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -640,7 +660,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ronwhite.CyclOps;
+				PRODUCT_BUNDLE_IDENTIFIER = com.rwhite.CyclOps;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

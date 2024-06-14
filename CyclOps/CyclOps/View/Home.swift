@@ -4,14 +4,14 @@
 //
 //  Created by Ron White on 6/4/24.
 //
-
+import Foundation
 import SwiftUI
 
 struct Home: View {
-    
-    /// view properties
     let TAG = "HomeView"
     @StateObject var model: HomeUI
+
+    /// stated properties
     @State var screenSize: CGSize = .zero
     @State var activeSheet: HomeActiveSheet?
     @State var detectMng = DetectionManager()
@@ -124,8 +124,8 @@ struct Home: View {
             model.showCamera = false
         }) { item in
             switch item {
-            case .devices: Devices().environmentObject(CBViewModel())
-            case .camera: Camera()
+                case .devices: Devices().environmentObject(CBViewModel())
+                case .camera: Camera(model: CameraUI())
             }
         }
     }
