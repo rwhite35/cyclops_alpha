@@ -10,17 +10,16 @@ import SwiftUI
 /// View Modifiers: Screen width, height computed from active view
 struct ScreenCalculator: ViewModifier {
     @Binding var screenSize: CGSize
-    
     func body(content: Content) -> some View {
-        content.background(
-            GeometryReader { proxy in
-                Color.clear
-                    .onAppear{
-                        screenSize = proxy.size
-                    }
-            }
-        )
-    }
+    content.background(
+        GeometryReader { proxy in
+            Color.clear
+                .onAppear{
+                    screenSize = proxy.size
+                }
+        }
+    )
+}
 }
 
 /// Buttons: Action buttons style and annimation treatment
@@ -63,15 +62,18 @@ extension Text {
     func sectionHeader() -> some View {
         font(Font.custom("Arial",size:13)).fontWeight(.semibold).foregroundColor(.secondary)
     }
+
     /// Body Copy Text, adapts to light/dark mode
     func bodyCopy() -> some View {
         font(Font.custom("Arial",size:12)).fontWeight(.regular).foregroundColor(Color("bodyTextColor"))
     }
+
     /// Action button label font size/style
     /// - color set from buttonStyle configuration.label property
     func mainBtnLabel() -> some View {
         font(Font.custom("Arial", size: 16)).fontWeight(.semibold)
     }
+
     /// Navigation button label font size/style
     /// - color set from buttonStyle configuration.label property
     func navBtnLabel() -> some View {

@@ -9,18 +9,20 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @ObservedObject var parentsStore: ParentsStore = .vwstack
+    @ObservedObject var parentStore: ParentStore = .viewstack
     let appName = "CyclOps Alpha v"
     let appVer = "1.0"
 
     init() {
         UINavigationBar.appearance()
-            .largeTitleTextAttributes = [.font: UIFont.preferredFont(forTextStyle:.largeTitle)]
+            .largeTitleTextAttributes = [
+                .font: UIFont.preferredFont(forTextStyle:.largeTitle)
+            ]
     }
 
     var body: some View {
         NavigationView {
-            List(parentsStore.children, id: \.self) { child in
+            List(parentStore.children, id: \.self) { child in
                 NavigationLink(child) {
                     ViewStackTop(child: child)
                 }
@@ -42,13 +44,13 @@ struct ViewStackTop: View {
             }
         }
         Button("Remove from stack") {
-            ParentsStore.vwstack.remove(child)
+            ParentStore.viewstack.remove(child)
         }
     }
 }
 
-final class ParentsStore: ObservableObject {
-    static let vwstack = ParentsStore()
+final class ParentStore: ObservableObject {
+    static let viewstack = ParentStore()
     
     @Published var children: [String] = ["Home", "Settings", "Quick Setup"]
     
