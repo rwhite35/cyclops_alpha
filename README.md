@@ -1,7 +1,5 @@
 ## <img src="https://github.com/rwhite35/cyclops_alpha/blob/main/icons/CyclOps_logoSm.png" width="50"> CyclOps Alpha
 
---
-
 ### MVP
 
 CyclOps is a personal project that is important, necessary and long overdue.  The application provides road cyclist notification on approaching vehicle detection at a fixed distance. Its primary capability is on-device object detection using machine learning and a custom trained dataset having a high confidence score for a variety of vehicle shapes and size.   
@@ -11,9 +9,10 @@ that may or may not be included in a production version.
 
 --
 
-### Machine Learning Field Training
+### Machine Learning Dataset Training Status
 
-Additionally, training data has not been included here as it's still in the training/annotation stage and not ready for a beta testing. 
+- 20240906 Training data has not been included here as it's still in the training/annotation stage and not ready for a beta testing.<br />
+  Once its close, it will likely be posted on [Hugging Face](https://huggingface.co) since that is where the initial dataset was pulled from. 
 
 -- 
 
