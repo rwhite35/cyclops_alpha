@@ -19,7 +19,21 @@ import UserNotifications
 class AppDelegate: NSObject, UIApplicationDelegate {
     
     let TAG = "AppDelegate"
+    
+    /// Actionable Notification properties - for actual road training the data model
+    /// - Accept action means the process correctly detected/notified on an approaching vehicle
+    /// - Reject action means the process incorrectly notified rider that a vehicle was approaching.
+    let acceptAction = UNNotificationAction(identifier: "ACCEPT_ACTION", title: "Accept", options: [])
+    let rejectAction = UNNotificationAction(identifier: "REJECT_ACTION", title: "Reject", options: [])
+    /// - Road training category differentiates from static or annotated training (ie Roboflow).
+    /// other categories could be post ride if video was captured and stored.
+    var roadTrainingCategory: UNNotificationCategory?
+    let trainingIdentifier = "ROAD_TRAINING"
+    
+    /// Actionable Notification Payload
+    let trial = UNMutableNotificationContent()
 
+    /// Notification Center properties
     var notificationCenter: UNUserNotificationCenter?  // starts as a zeroing reference
     var notificationError: [Notification] = []
     var notificationStorage: [String: [String: [(String, Any) -> Void]]] = [:]
@@ -28,12 +42,13 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     /// runs before SwiftUI root view intialization.
     func application(
         _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    ) -> Bool {
         
         /// request authorization for remote and system Push notifications
         UNUserNotificationCenter.current().requestAuthorization(
-            options: [.alert, .badge, .sound]
-        ) { granted, error in
+            options: [.alert, .badge, .sound]) { granted, error in
+
             if granted {
                 print("\(self.TAG).didFinishLaunching user granted NotificationCenter permission.")
                 /** - uncomment once Apple APN Development is wired in
@@ -44,13 +59,42 @@ class AppDelegate: NSObject, UIApplicationDelegate {
         return true
     }
     
-    /// assigns appDelegate as object for UNUserNotificationCenter
+    /// assign AppDelegate UNUserNotificationCenter Center before startup completes to ensure
+    /// any pending notification is handled
     func application(_ application: UIApplication,
                      willFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        
+        /// instantiate Actionable Notifications ROAD_TRAINING category
+        roadTrainingCategory = UNNotificationCategory(
+            identifier: trainingIdentifier,
+            actions: [ acceptAction, rejectAction ],
+            intentIdentifiers: [ ],
+            hiddenPreviewsBodyPlaceholder: "",
+            options: .customDismissAction)
+
+        /// Actionable Notification payload
+        trial.title = NSString.localizedUserNotificationString(forKey: "Vehicle Approaching!", arguments: nil)
+        trial.body = NSString.localizedUserNotificationString(forKey: "Accept if correct", arguments: nil)
+        trial.categoryIdentifier = trainingIdentifier
+
         notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter?.setNotificationCategories([roadTrainingCategory!])
         notificationCenter?.delegate = self
-        print("\(self.TAG).willFinishLaunching sets appDelegate.notificationCeneter: \(notificationCenter)")
+        
+        print("\(self.TAG).willFinishLaunching sets appDelegate.notificationCeneter: \(String(describing: notificationCenter))")
         print("\(self.TAG).willFinishLaunching resets notificationStorage: \(notificationStorage)")
+        
+        /// trigger notification 2 minutes after launch
+        /**
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 2*60, repeats: false)
+        let request = UNNotificationRequest(identifier: trainingIdentifier, content: trial, trigger: trigger)
+        notificationCenter?.add(request) { error in
+            if let error = error {
+                print("error adding notification \(self.trainingIdentifier), with error \(error)")
+            }
+        }
+        */
+
         return true
     }
     
@@ -68,7 +112,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     // - TODO: send token to remote server once push notification has been implemented.
     func application(
         _ application: UIApplication,
-        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data
+    ) {
             /// convert for easy CentralNotificationCenter.notificationStorage
             let apnToken = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
             /// registerNotifications( ) /// add observers and store apnToken
@@ -98,6 +143,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
             return
         }
         let className = String(describing: observerClass)
+
         if notificationStorage[className] != nil && notificationStorage[className]?[name] != nil {
             notificationStorage[className]?[name]?.append(closure)
         } else {
@@ -136,7 +182,8 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 }
 
-// -MARK: local and remote delegate implementation
+// -MARK: UNUserNotificationCenterDelegates
+/// for local and remote notification protocol implementation
 ///
 /// notifications name string
 typealias NotificationObject = String
@@ -144,16 +191,30 @@ extension NotificationObject {
     func setNotificationObject(name: String) -> String { return name }
 }
 
-/// apps NotificationCenter typealias (listener)
+/// UNUserNotificationCenterDelegates protocol
+///
 extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    /// Required, handles user’s response to a delivered notification
     func userNotificationCenter(_ center: UNUserNotificationCenter, 
+                                didReceive response: UNNotificationResponse) async {
+        print("Notification posted with identifier \(response.notification.description)")
+        print(response)
+    }
+
+    /// Optional, handles notification arriving while app is running in foreground.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void
     ){
         print("Notification posted with identifier \(notification.request.identifier)")
         print(notification)
-
-        /// completionHandler displays the banner and plays notification sound, but only when app is in foreground
         completionHandler([.banner, .sound])
+    }
+    
+    /// Optional, display notification settings
+    func userNotificationCenter(_ center: UNUserNotificationCenter, 
+                                openSettingsFor notification: UNNotification?) {
+        print("Opening Notification Settings \(String(describing: notification?.description))")
     }
 }
