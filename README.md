@@ -1,4 +1,4 @@
-### CyclOps Alpha ![CyclOps Logo Bug]<img src="https://github.com/rwhite35/cyclops_alpha/blob/main/icons/CyclOps_logoSm.png" width="50">
+## <img src="https://github.com/rwhite35/cyclops_alpha/blob/main/icons/CyclOps_logoSm.png" width="50"> CyclOps Alpha
 
 --
 
